@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Web Audio Test
+    </title>
+  </head>
+  <body>
+    <h1> Hearing test </h1>
+    <main style="font-family: sans-serif; font-size: medium; margin: 4em;" 
+          class="content-horizontal-center content-vertical-center">
+      <div class="w-m text-justify">
+        <p>
+          The purpose of this hearing test is to evaluate your ability to hear sound over different intensities and frequencies, and the ability of your hardware to reproduce those sounds. <br>
+          When you click the button, you will hear a sequence of sounds (almost 1 second long), separated by a short silence. <strong> Your task is to count the number of tones you hear.</strong>
+        </p>
+        <p>
+          We will ask you for your answer after the whole sequence has played. <strong>The sounds will only be played once before you need to provide an answer </strong>, so please pay close attention. However, if you answer incorrectly, you will have a second chance to hear the sequence.
+        </p>
+        <p>
+          Click below to start the task.
+        </p>
+      </div>
+    
+      <button id="Start_hearing_test" style="font-family: sans-serif; font-size: 34px; margin: 50px;
+                      width: 140px;height: 100px;border-radius: 6px;">
+        Start
+      </button>
+
+      <label for="hearing_test_answer">
+        <p> <strong>
+          How many tones did you hear?
+        </strong> </p>
+      </label>
+      <input type="number" id="hearing_test_answer" name="hearing_test_answer" /><br /><br />
+    </main>
+  </body>
+  <script>
+
+    function gain_A_weighting(f){
+      // Apply inverse A weighting gain to a given frequency
+      // IEC 61672-1:2013 norm
+      let fRef, a, b, c, d1, d2, d, rAf, gain;
+      fRef = 1000;
+      a    = f**4 * 12194**2;
+      b    = f**2 + 20.6**2;
+      c    = f**2 + 12194**2;
+      d1   = f**2 + 107.7**2;
+      d2   = f**2 + 737.9**2;
+      d    = Math.sqrt(d1*d2);
+      rAf  = a/(b*c*d);
+      gain = 1-rAf;
+      console.log('Frequency: ', f, 'Gain: ', gain)
+      return gain;
+    }
+
+    function shuffle(array){
+      // Shuffle elements inside an array with Fisher–Yates method
+      // Source: https://bost.ocks.org/mike/shuffle/
+      let m = array.length, t, i;
+      // While there remain elements to shuffle
+    while (m){
+      // Pick a remaining element
+      i = Math.floor(Math.random() * m--);
+      // And swap it with the current element
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+      }
+    return array;
+    }
+
+    function createToneArray(freqsList){
+      // Shuffle, sample first 6 and concatenate with mandatory frequencies
+      let shuffledFreqs  = shuffle(freqsList);
+      let shuffledShort  = shuffledFreqs.slice(0,6);
+      let toneArray      = shuffledShort.concat(mandFreq);
+      return toneArray;
+    }
+
+    function randomList(arrayLength){
+      // Create a random boolean array of x length
+      var boolArray = [];
+      for(let i= 0; i<arrayLength; i++){
+        boolArray.push(Math.random() < 0.5) // 50% probability of being true
+      }
+      return boolArray;
+    }
+
+    function createBooleanConditions(){
+      // Create 6 random boolean conditions, then concatenate with [true, true]
+      var boolArray = randomList(6);
+      boolArray     = boolArray.concat([true, true])
+      return boolArray;
+    }
+
+    function randomizeTrial(toneArray, boolArray){
+      // Create array of Frequencies that will be played
+      var idx = shuffle([...Array(8).keys()]);
+      var N   = boolArray.length;
+      var trialToneArray = [];
+      var trialBoolArray = [];
+      for (let i = 0; i<N; i++){
+        let j = idx[i];
+        trialToneArray.push(toneArray[j]);
+        trialBoolArray.push(boolArray[j]);
+      }
+      return {tone:trialToneArray, bool:trialBoolArray};
+    }
+
+    function createTrial(freqsList){
+      // Get list of frequencies/condition for a given trial
+      var toneArray  = createToneArray(freqsList);
+      var boolArray  = createBooleanConditions();
+      var trialArray = randomizeTrial(toneArray, boolArray);
+      return {tone:trialArray.tone, bool:trialArray.bool};
+    }
+
+    function playTone(freq, duration, startTime){
+    // Play a pure tone at freq [Hz] for 750 ms
+    oscillator = context.createOscillator();      // Create sound source
+    gainNode   = context.createGain();            // Create gain node
+    gain_val   = gain_A_weighting(freq)
+
+    oscillator.type = "sine";                     // Sine wave
+    oscillator.frequency.value = freq;            // Frequency in Hertz
+    oscillator.connect(gainNode);                 // Connect sound source to gain node
+    gainNode.connect(context.destination);        // Connect gain node to output
+    gainNode.gain.value = 0.8*gain_val;           // Set gain node to 50 percent x ponderation
+    oscillator.start(startTime);                  // Play sound source instantly
+    oscillator.stop(startTime + duration);        // Stop after specified duration
+    }
+
+    function playSilence(duration, startTime){
+    // Gererate silence
+    silence = context.createBufferSource();
+    silence.connect(context.destination);
+    silence.start(startTime)
+    silence.stop(startTime + duration) // Stop after specified duration
+    }
+
+    const buttonEl = document.querySelector('button');
+    var context    = new AudioContext(); // Create audio container
+    var freqsList  = [80,100,125,160,200,250,315,400,500,630,
+                      800,1000,1250,1600,2000,2500,3150,4000,5000,6300,
+                      8000];     // third octave bands for ISO226 compatibility
+    var mandFreq   = [63,10000]; // mandatory frequencies (63 instead of 55)
+    var toneDuration    = 0.750; // Pure tone playback duration in seconds
+    var silenceDuration = 0.250; // Silence between tones in seconds
+
+    buttonEl.addEventListener('click', function(){
+      if (context.state === 'suspended'){
+        context.resume();
+      }
+      
+      var trialArray  = createTrial(freqsList) // Create object with trial arrays
+      var toneArray   = trialArray.tone        // Get shuffled 8 tone array
+      var boolArray   = trialArray.bool        // Get shuffled 8 boolean array
+      var currentTime = context.currentTime;   // Initialize time
+      var count       = boolArray.filter(Boolean).length; // Count correct answers
+
+      console.log(`There are ${count} tones`);
+      console.log(toneArray)
+      console.log(boolArray)
+
+      for(let i= 0; i<8; i++){
+        if (boolArray[i] == true){
+          playTone(toneArray[i], toneDuration, currentTime);     // play tone
+          playSilence(silenceDuration, currentTime+toneDuration); // wait
+          console.log(i, 'Tone')
+        } else if (boolArray[i] == false){
+          playSilence(toneDuration,    currentTime);              // substitute tone by silence
+          playSilence(silenceDuration, currentTime+toneDuration); // wait
+          console.log(i, 'Silence')
+        }
+        
+        currentTime += toneDuration + silenceDuration             // Update clock    
+      }
+    
+    })
+
+  </script>
+</html>

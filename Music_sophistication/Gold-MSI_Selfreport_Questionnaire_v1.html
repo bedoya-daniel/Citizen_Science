@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GoldMSI Survey</title>
+    <header>
+      <h1>Musical Sophistication Questionnaire</h1>
+      <p>Goldsmiths MSI</p>
+    </header>
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- import the webpage's javascript file -->
+    <script src="/script.js" defer></script>
+  </head>
+  <body>
+    <!-- include the Glitch button to show what the webpage is about and
+          to make it easier for folks to view source and remix -->
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js" defer></script>
+  </body>
+
+  <main style="font-family: sans-serif; font-size: medium; margin: 4em;">
+    <form>
+      <p>
+        Please answer these questions by selecting the most appropriate option
+        for you. The purpose of this self-report questionnaire is <br />
+        a) to quantify the amount of musical engagement and behaviour of an
+        person in its many possible facets <br />
+        b) to record the self-assessed level of various musical skills.
+      </p>
+
+      <!-- TABLE #2 -->
+      <table border="1" cellspacing="1">
+        <!-- Heading Data -->
+        <thead>
+          <!-- Column Headings -->
+          <tr>
+            <th class="colQuestion"><br /><br />Question</th>
+            <th id="col1" style="height:100px;width:150px">
+              Completely <br />
+              Disagree <br /><br /><br />1
+            </th>
+            <th id="col2" style="height:100px;width:150px">
+              Strongly <br />
+              Disagree <br /><br /><br />2
+            </th>
+            <th id="col3" style="height:100px;width:150px">
+              <br />
+              Disagree <br /><br /><br />3
+            </th>
+            <th id="col4" style="height:100px;width:150px">
+              Neither <br />
+              Agree nor <br />
+              Disagree <br /><br />4
+            </th>
+            <th id="col5" style="height:100px;width:150px">
+              <br />
+              Agree <br /><br /><br />5
+            </th>
+            <th id="col6" style="height:100px;width:150px">
+              Strongly <br />
+              Agree <br /><br /><br />6
+            </th>
+            <th id="col6" style="height:100px;width:150px">
+              Completely <br />
+              Agree <br /><br /><br />7
+            </th>
+          </tr>
+        </thead>
+
+        <!-- Body Data -->
+        <tbody>
+          <tr>
+            <td class="colQuestion">
+              1. I spend a lot of my free time doing music-related activities.
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question1_Opt1"
+                name="responseToQuestion[1]"
+                type="radio"
+                value="1"
+              />
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question1_Opt2"
+                name="responseToQuestion[1]"
+                type="radio"
+                value="2"
+              />
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question1_Opt3"
+                name="responseToQuestion[1]"
+                type="radio"
+                value="3"
+              />
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question1_Opt4"
+                name="responseToQuestion[1]"
+                type="radio"
+                value="4"
+              />
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question1_Opt5"
+                name="responseToQuestion[1]"
+                type="radio"
+                value="5"
+              />
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question1_Opt6"
+                name="responseToQuestion[1]"
+                type="radio"
+                value="6"
+              />
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question1_Opt7"
+                name="responseToQuestion[1]"
+                type="radio"
+                value="7"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="colQuestion">
+              2. I sometimes choose music that can trigger shivers down my
+              spine.
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question2_Opt1"
+                name="responseToQuestion[2]"
+                type="radio"
+                value="1"
+              />
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question2_Opt2"
+                name="responseToQuestion[2]"
+                type="radio"
+                value="2"
+              />
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question2_Opt3"
+                name="responseToQuestion[2]"
+                type="radio"
+                value="3"
+              />
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question2_Opt4"
+                name="responseToQuestion[2]"
+                type="radio"
+                value="4"
+              />
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question2_Opt5"
+                name="responseToQuestion[2]"
+                type="radio"
+                value="5"
+              />
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question2_Opt6"
+                name="responseToQuestion[2]"
+                type="radio"
+                value="6"
+              />
+            </td>
+            <td style="text-align:center">
+              <input
+                id="Question2_Opt7"
+                name="responseToQuestion[2]"
+                type="radio"
+                value="7"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br />
+      <p><strong> Please select the most appropriate category: </strong></p>
+
+      32. I engaged in regular, daily practice of a musical instrument
+      (including voice) for
+      <select name="q32">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4-5">4-5</option>
+        <option value="6-9">6-9</option>
+        <option value="10+">10 or more</option>
+      </select>
+      years.
+      <br />
+
+      33. At the peak of my interest, I practiced
+      <select name="q33">
+        <option value="0">0</option>
+        <option value="0.5">0.5</option>
+        <option value="1">1</option>
+        <option value="1.5">1.5</option>
+        <option value="2">2</option>
+        <option value="3-4">3-4</option>
+        <option value="5+">5 or more</option>
+      </select>
+      hours per day on my primary instrument.
+      <br />
+
+      <label for="q39">
+        39. The instrument I play best (including voice) is
+      </label>
+      <input type="text" id="q39" name="q39" /><br /><br />
+
+      <p>
+        <strong
+          >What is the highest educational qualification you have attained?
+        </strong>
+      </p>
+      <input type="radio" id="highest_ed1" name="highest_ed1" value="not_ed" />
+      <label for="highest_ed1">
+        Did not complete any school qualification </label
+      ><br />
+      <input type="radio" id="highest_ed2" name="highest_ed2" value="1st_ed" />
+      <label for="highest_ed2">
+        Completed first school qualification (e.g GSCE/Junior High
+        School)</label
+      ><br />
+      <input type="radio" id="highest_ed3" name="highest_ed3" value="2nd_ed" />
+      <label for="highest_ed3">
+        Completed second school qualification (e.g A levels / High
+        School)</label
+      ><br />
+      <input type="radio" id="highest_ed4" name="highest_ed4" value="und_ed" />
+      <label for="highest_ed4">
+        Undergraduate degree of professional qualification </label
+      ><br />
+      <input type="radio" id="highest_ed4" name="highest_ed5" value="post_ed" />
+      <label for="highest_ed5"> Postgraduate degree </label><br />
+      <input
+        type="radio"
+        id="highest_ed4"
+        name="highest_ed6"
+        value="still_ed"
+      />
+      <label for="highest_ed6"> I am still in education </label><br />
+
+      <!-- AGE -->
+      <br />
+      <strong>Age</strong>
+      <br />
+      <select name="age_group">
+        <option value="18-24">18-24</option>
+        <option value="25-34">25-34</option>
+        <option value="35-44">35-44</option>
+        <option value="45-54">45-54</option>
+        <option value="55-64">55-64</option>
+        <option value="65-74">65-74</option>
+        <option value="75+">75 or older</option>
+      </select>
+      <br />
+
+      <!-- GENDER -->
+      <br />
+      <strong>Gender</strong>
+      <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+          <td>
+            <label
+              ><input
+                type="radio"
+                name="gender"
+                value="Unspecified"
+                checked
+              />Unspecified</label
+            >
+          </td>
+          <td>
+            <label
+              ><input type="radio" name="gender" value="Female" />Female
+            </label>
+          </td>
+          <td>
+            <label
+              ><input type="radio" name="gender" value="Male" />Male
+            </label>
+          </td>
+        </tr>
+      </table>
+
+      <br />
+      <label for="country_res">Country of current residency:</label>
+      <input type="text" id="country_res" name="country_res" /><br /><br />
+
+      <br />
+      <input type="submit" value="Submit" />
+      <input type="reset" />
+    </form>
+  </main>
+</html>
+
