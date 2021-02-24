@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Audio levels calibration
+    </title>
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <h1> Audio calibration </h1>
+    <main  class="content-horizontal-center content-vertical-center">
+      <div class="w-m text-justify">
+        <p>
+          To calibrate the volume for the site, click on the <strong> Play </strong> button and adjust the volume of your device to a comfortable level. <br>
+          The audio goes from soft to loud in the first few seconds. <br>
+
+          Use the volume controls of your device to set your desired level and leave them unchanged throughout your listening session.
+        </p>
+      </div>
+
+      <div id="wrapper">
+        <audio id="testTrack" preload="metadata">
+          <source src="Kreisler_Loves-Joy_Rachmaninoff-excerpt_normalized_-20dB_RMS.mp3" type="audio/mp3">
+        </audio>
+        <nav>
+          <div id="defaultBar">
+            <div id="progressBar"> <img src="images/loudness.svg" width=640 height=100> </div>
+          </div>
+          <div id="buttons">
+            <button type="button" id="playButton" title="Play"></button>
+            <!-- <button type="button" id="muteButton"></button> -->
+            <span id="currentTime">0:00</span> / <span id="fullDuration">0:00</span>
+          </div>
+        </nav>
+      </div>
+
+    </main>
+  </body>
+  <script src="controls.js"></script>
+</html>
